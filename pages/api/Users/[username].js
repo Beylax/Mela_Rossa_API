@@ -1,13 +1,8 @@
 import mysql from "mysql2/promise";
+import dbconn from "../../../dbconnection"
 
 export default async function getAllUsers(req, res) {
-    const dbconnection = await mysql.createConnection({
-        host: "sql11.freesqldatabase.com",
-        database: "sql11513563",
-        port: 3306,
-        user: "sql11513563",
-        password: "eTPq74SdEt"
-    });
+    const dbconnection = await mysql.createConnection(dbconn);
 
     try {
         const query = `SELECT * FROM Users WHERE Username = "${req.query.username}"`;

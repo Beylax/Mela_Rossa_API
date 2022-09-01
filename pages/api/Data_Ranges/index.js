@@ -1,12 +1,12 @@
 import mysql from "mysql2/promise";
 import dbconn from "../../../dbconnection"
 
-export default async function getAllRoles(req, res) {
+export default async function getAllDataRanges(req, res) {
     const dbconnection = await mysql.createConnection(dbconn);
 
     if (req.method === 'GET') {
         try {
-            const query = "SELECT * FROM Roles";
+            const query = "SELECT * FROM Data_Range_Centers";
             const values = [];
             const [data] = await dbconnection.execute(query, values);
             dbconnection.end();
@@ -23,13 +23,13 @@ export default async function getAllRoles(req, res) {
     }
     else if (req.method === 'POST') {
         try {
-            const role = req.body;
+            const data_range = req.body;
 			const query =
-				"INSERT INTO Roles VALUES (?, ?, ?)";
+				"INSERT INTO Data_Range_Centers VALUES (?, ?, ?)";
 			const values = [
-				role.Hierarchy,
-				role.Name,
-				role.Description
+				data_range.Start_Date,
+				data_range.End_Date,
+				data_range.Summer_Center
 			];
 			const [data] = await dbconnection.execute(query, values);
 			dbconnection.end();

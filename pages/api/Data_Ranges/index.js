@@ -1,16 +1,14 @@
 import mysql from "mysql2/promise";
 import dbconn from "../../../dbconnection";
+import NextCors from "nextjs-cors";
 
 export default async function getAllDataRanges(req, res) {
 	const dbconnection = await mysql.createConnection(dbconn);
-	res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Credentials", "true");
-	res.setHeader("Access-Control-Max-Age", "1800");
-	res.setHeader("Access-Control-Allow-Headers", "content-type");
-	res.setHeader(
-		"Access-Control-Allow-Methods",
-		"PUT, POST, GET, DELETE, PATCH, OPTIONS",
-	);
+	await NextCors(req, res, {
+		// Options
+		methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+		origin: "*",
+	});
 
 	if (req.method === "GET") {
 		try {
